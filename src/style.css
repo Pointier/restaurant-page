@@ -1,7 +1,22 @@
+@import url("./reset.css");
+
+body {
+  height: 100lvh;
+  display: flex;
+  flex-direction: column;
+}
+
 header {
-  background-color: black;
+  background-color: blue;
 }
 
 #content {
-  background-image: url("./icon.jpg");
+  background-image: url("background.jpg");
+  background-position: center center;
+  background-size: cover;
+  flex: 1 0 auto;
+}
+
+footer {
+  flex: 0 1 auto;
 }
