@@ -2,29 +2,51 @@ import "./style.css";
 import { renderHome } from "./home";
 
 const pageController = class {
-  constructor(toAttach, functionsRender, ...args) {
+  constructor(toAttach, functionsRendering, ...args) {
     this.content = document.getElementById(toAttach);
-    this.functionsRender = functionsRender;
+    this.functionsRendering = functionsRendering;
     this.buttons = args;
-    this.mappingButtonsFunctions = {};
     this.initialize();
   }
+
   initialize() {
+    let isFirstButton = true;
     for (const buttonId of this.buttons) {
+      const functionRendering = this.mapping(buttonId);
       const button = document.getElementById(buttonId);
+
       button.addEventListener("click", () => {
         this.clearNode();
-        const div = renderHome();
-        this.content.appendChild(div);
+        const div = functionRendering();
+        if (div) {
+          this.content.appendChild(div);
+        } else {
+          console.log(`${buttonId} is not mapped`);
+        }
       });
-    }
-  }
-  mapping() {
-    for (const buttonId of this.buttons) {
-      for (const functionRender of this.functionsRender) {
+      if (isFirstButton) {
+        this.clearNode(); // Clear existing content before rendering the first button's content
+        const div = functionRendering();
+        if (div) {
+          this.content.appendChild(div);
+        } else {
+          console.log(`${buttonId} is not mapped`);
+        }
+        isFirstButton = false;
       }
     }
   }
+
+  mapping(buttonId) {
+    // Too convoluted but i wanted to automatically assign function to button if we added more
+    for (const functionRendering of this.functionsRendering) {
+      const name = functionRendering.name.toLowerCase();
+      if (name.includes(buttonId)) {
+        return functionRendering;
+      }
+    }
+  }
+
   clearNode() {
     while (this.content.firstChild) {
       this.content.removeChild(this.content.lastChild);

@@ -17,6 +17,17 @@ header {
   flex: 1 0 auto;
 }
 
+.presentation {
+  display: flex;
+  flex-direction: column;
+  gap: 200px;
+  padding: 15px;
+  background-color: white;
+  .paragraph {
+    background-color: black;
+  }
+}
+
 footer {
   flex: 0 1 auto;
 }
