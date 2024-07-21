@@ -1,6 +1,7 @@
 import "./style.css";
 import { renderHome } from "./home";
 import { renderMenu } from "./menu";
+import { renderContact } from "./contact";
 
 const pageController = class {
   constructor(toAttach, functionsRendering, ...args) {
@@ -23,7 +24,7 @@ const pageController = class {
       });
       if (isFirstButton) {
         this.clearNode(); // Clear existing content before rendering the first button's content
-        const div = renderMenu();
+        const div = functionRendering();
         this.content.appendChild(div);
         isFirstButton = false;
       }
@@ -49,9 +50,8 @@ const pageController = class {
 
 new pageController(
   "content",
-  [renderHome, renderMenu],
+  [renderHome, renderMenu, renderContact],
   "home",
   "menu",
   "contact",
-  "about",
 );
