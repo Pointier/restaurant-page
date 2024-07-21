@@ -37,6 +37,5 @@ export function renderHome() {
 
   divContent.appendChild(presentation);
 
-  divContent.style.color = "white";
   return divContent;
 }

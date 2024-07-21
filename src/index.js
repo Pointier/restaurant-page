@@ -1,5 +1,6 @@
 import "./style.css";
 import { renderHome } from "./home";
+import { renderMenu } from "./menu";
 
 const pageController = class {
   constructor(toAttach, functionsRendering, ...args) {
@@ -18,20 +19,12 @@ const pageController = class {
       button.addEventListener("click", () => {
         this.clearNode();
         const div = functionRendering();
-        if (div) {
-          this.content.appendChild(div);
-        } else {
-          console.log(`${buttonId} is not mapped`);
-        }
+        this.content.appendChild(div);
       });
       if (isFirstButton) {
         this.clearNode(); // Clear existing content before rendering the first button's content
-        const div = functionRendering();
-        if (div) {
-          this.content.appendChild(div);
-        } else {
-          console.log(`${buttonId} is not mapped`);
-        }
+        const div = renderMenu();
+        this.content.appendChild(div);
         isFirstButton = false;
       }
     }
@@ -54,4 +47,11 @@ const pageController = class {
   }
 };
 
-new pageController("content", [renderHome], "home", "menu", "contact", "about");
+new pageController(
+  "content",
+  [renderHome, renderMenu],
+  "home",
+  "menu",
+  "contact",
+  "about",
+);
